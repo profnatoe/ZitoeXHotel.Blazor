@@ -37,6 +37,7 @@ namespace ZitoeXHotel.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
