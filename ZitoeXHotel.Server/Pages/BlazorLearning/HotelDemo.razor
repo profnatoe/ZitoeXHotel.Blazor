@@ -1,0 +1,65 @@
+@page "/hoteldemo"
+@using Data;
+
+<h3>We will display hotel rooms and amneties here!</h3>
+<div class="border p-2 mt-2">
+    <h2 class="text-info">Room List [Using Components]</h2>
+    <div class="row container">
+        @foreach (var room in RoomList)
+        {
+            <div class="bg-light border p-2 col-5">
+                <h4 class="text-secondary"> Room - @room.Id</h4>
+                @room.Name <br/>
+                @room.Price.ToString("c") <br/>
+                <input type="checkbox" @bind-value="room.IsActive" checked="@(room.IsActive?"Active": null)" /> &nbsp; Is Active
+                <br/>
+                <span>This room is @(room.IsActive?"Active":"Inactive")</span>
+            </div>
+            <hr/>
+            @if (room.IsActive)
+            {
+                @foreach (var prop in room.RoomProperties)
+                {
+                    <p class="text-info"> @prop.Name - @prop.Value</p>
+                }
+            }
+        }
+    </div>
+</div>
+
+
+@code{
+
+    List<Room> RoomList = new List<Room>();
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        RoomList.Add(new Room
+        {
+            Id = 402,
+            Name = "Standard Room",
+            Description = "A basic room with a single bed, shower and a toilet",
+            Price = 499.99,
+            RoomProperties = new List<RoomProperty>
+            {
+                new RoomProperty{ Id = 1, Name = "Sq Ft", Value = "70"},
+                new RoomProperty{Id =2, Name = "Occupancy", Value = "1"}
+            }
+        });
+
+        RoomList.Add(new Room()
+        {
+            Id = 321,
+            Name = "Ephelia Suite",
+            Description = "Our most expensive suite, with everything you can imagine",
+            Price = 2349.99,
+            RoomProperties = new List<RoomProperty>()
+            {
+                new RoomProperty() {Id = 3, Name = "Sq Ft", Value = "150"},
+                new RoomProperty() {Id = 4, Name = "Occupancy", Value = "3"}
+            }
+        });
+    }
+
+}
