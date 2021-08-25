@@ -2,7 +2,7 @@
 @using Data;
 
 <h3>We will display hotel rooms and amneties here!</h3>
-<div class="border p-2 mt-2">
+<div class="border p-2 mt-2" style="background-color: azure">
     <h2 class="text-info">Room List [Using Components]</h2>
     <div class="row container">
         @foreach (var room in RoomList)
@@ -14,15 +14,17 @@
                 <input type="checkbox" @bind-value="room.IsActive" checked="@(room.IsActive?"Active": null)" /> &nbsp; Is Active
                 <br/>
                 <span>This room is @(room.IsActive?"Active":"Inactive")</span>
-            </div>
-            <hr/>
-            @if (room.IsActive)
-            {
-                @foreach (var prop in room.RoomProperties)
+                
+                @if (room.IsActive)
                 {
-                    <p class="text-info"> @prop.Name - @prop.Value</p>
+                    @foreach (var prop in room.RoomProperties)
+                    {
+                        <p class="text-info"> @prop.Name - @prop.Value</p>
+                    }
                 }
-            }
+                <input type="button" class="btn btn-danger" value="Delete" />
+                <input type="button" class="btn btn-outline-success" value="Edit"/>
+            </div>
         }
     </div>
 </div>
